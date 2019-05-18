@@ -2,9 +2,14 @@
 
 ## i3 panel config. Powerline style.
 ## Based on Electro7's work
-## Modded by demure
+## modified by gigaverse
 
-panel_fifo="/tmp/i3_lemonbar_${USER}"
+# multiple monitors call for multiple fifo files
+for i in `seq $(xrandr | grep " connected" | wc -l)`
+do
+    panel_fifo[$i]="/tmp/i3_lemonbar_${USER}$i"
+done
+
 res_w=$(xrandr | awk '/current/ {print $8a}')
 
 ## Will limit the char length of music, adjust down for smaller screens.

@@ -1,4 +1,4 @@
-## Demure's i3 lemonbar ##
+## Gigaverse's i3 lemonbar ##
 
 ![my bar][pic]
 

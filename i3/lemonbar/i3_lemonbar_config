@@ -8,7 +8,10 @@
 for i in `seq $(xrandr | grep " connected" | wc -l)`
 do
     panel_fifo[$i]="/tmp/i3_lemonbar_${USER}$i"
+    monitor_name[$i]=$(xrandr | grep " connected" | awk -F' ' '{print $1}' | awk "NR==$i")
+    echo ${monitor_name[$i]}
 done
+
 
 res_w=$(xrandr | awk '/current/ {print $8a}')
 

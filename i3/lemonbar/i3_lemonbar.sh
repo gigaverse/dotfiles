@@ -23,7 +23,10 @@ xprop -spy -root _NET_ACTIVE_WINDOW | sed -un 's/.*\(0x.*\)/WIN\1/p' | tee ${pan
 
 ## i3 Workspaces, "WSP"
 ## TODO : Restarting I3 breaks the IPC socket con. :(
-$(dirname $0)/i3_workspaces.pl | tee "${panel_fifo[@]}" > /dev/null &
+for i in `seq ${#monitor_name[@]}`
+do
+    $(dirname $0)/i3_workspaces.pl "${monitor_name[$i]}" | tee "${panel_fifo[$i]}" > /dev/null &
+done
 
 # IRC, "IRC"
 # only for init
@@ -222,11 +225,11 @@ done &
 
 # List of all the monitors/screens you have in your setup
 resolutions=$(xrandr | grep -w connected | sed 's/ primary//'  | awk -F'[ ]+' '{print $3}' \
-    | awk -F'[\+x]' '{height = $2/75 ; print $1"x"height"+"$3"+"$4}')
+    | awk -F'[\+x]' '{height = $2/60 ; print $1"x"height"+"$3"+"$4}')
 count=1
 for res in $resolutions; do
     cat "${panel_fifo[$count]}" | $(dirname $0)/i3_lemonbar_parser.sh \
-         | lemonbar -p -b -f "${font}" -f "${iconfont}" -g "${res}" -B "${color_back}" -F "${color_fore}" &
+         | lemonbar -p  -f "${font}" -f "${iconfont}" -g "${res}" -B "${color_back}" -F "${color_fore}" &
     ((count++))
 done
 

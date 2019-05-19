@@ -20,6 +20,7 @@ use warnings;
 use AnyEvent::I3;
 use AnyEvent;
 use v5.10;
+use Data::Dumper;
 
 my $socket_path = undef;
 my ($workspaces, $outputs) = ([], {});
@@ -38,6 +39,7 @@ my $i3 = i3($socket_path);
 $| = 1;
 STDERR->autoflush;
 STDOUT->autoflush;
+my $monitor = $ARGV[0];
 
 # Wait a short amount of time and try to connect to i3 again
 sub reconnect {
@@ -109,31 +111,31 @@ sub got_outputs {
 sub output_change {
     $i3->get_outputs->cb(\&got_outputs)
 }
-
+# TODO Only display workspaces on the bar for the certain output
 sub update_output {
     my $out;
 
-    for my $name (keys %{$outputs}) {
-        $out .= "WSP";
+    $out .= "WSP";
 
-        for my $ws (@{$workspaces}) {
-            my $state = "INA";
-            $state = "ACT" if $ws->{visible};
-            $state = "URG" if $ws->{urgent};
-            $state = "FOC" if $ws->{focused};
+    for my $ws (@{$workspaces}) {
+        # check if this workspace belongs on this monitor
+        next if $ws->{output} ne $outputs->{$monitor}->{name};
+        #say Dumper($monitor);
 
-            # TODO: Fix this when i find a need for more than 10 wkspaces
-            my $num = substr($ws->{name}, 0, 1);
-            if($num >= 8) { next; }
-            
-            my $name = substr($ws->{name},2);
-            $out .= qq| $state$name |;
-        }
+
+        my $state = "INA";
+        $state = "ACT" if $ws->{visible};
+        $state = "URG" if $ws->{urgent};
+        $state = "FOC" if $ws->{focused};
+
+        my $wsname = $ws->{name};
+        $wsname =~ s/[0-9]*://;
+        $out .= qq| $state$wsname |;
+    }
 
         $out .= "\n";
 
         print $out;
-    }
 }
 
 $i3->connect->cb(\&connected);

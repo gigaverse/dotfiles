@@ -62,8 +62,8 @@ bat_alert_high=33
 
 ### Update Settings ### {{{
 # update setting, in seconds (conky update in i3_lemonbar_conky)
-upd_vol=1                           ## Volume update
-upd_bri=3                           ## Screen brightness update
+upd_vol=100                         ## Volume update
+upd_bri=300                         ## Screen brightness update
 upd_mail=120                        ## Mail check update
 upd_mmpd=3                          ## Multi Music Player Display
 upd_ext_ip=600                      ## External IP update
@@ -71,7 +71,7 @@ upd_gpg=300                         ## GPG update
 upd_tmb=60                          ## Thinkpad Multi Battery update
 upd_temp=3                          ## Temperature update
 upd_net=3                           ## Network update
-upd_mem=3                           ## Mem used update
+upd_mem=1                           ## Mem used update
 upd_time=5                          ## Time update
 upd_disk=10                         ## Disk free update
 upd_rss=120                         ## RSS check update
@@ -110,7 +110,7 @@ color_temp="#ffdc322f"              ## Backgroud for high temp
     rss_cback=${color_sec_b2}
     mail_cback=${color_sec_b1}
     cpu_cback=${color_sec_b2}
-    date_cback=${color_sec_b1}
+    date_cback=${color_sec_b2}
     mmpd_cback=${color_sec_b1}
     mmpd_alt_cback=${color_sec_b2}
     bat_cback=${color_sec_b1}
@@ -121,14 +121,12 @@ color_temp="#ffdc322f"              ## Backgroud for high temp
 
 ### Spacing ### {{{
 ##default space between sections
-#if [ ${res_w} -gt 1366 ]; then
-  #stab=' '
-#else
-  #stab=''
-#fi
+if [ ${res_w} -gt 1366 ]; then
+  stab=' '
+else
+  stab=''
+fi
 
-## I like to be compact...
-stab=' '
 ### End Spacing ### }}}
 
 ### Icons ### {{{
@@ -152,7 +150,7 @@ icon_bri=""                        ## Brightness icon
 icon_disk=""                       ## Disk usage icon
 icon_disk_home=""                  ## Disk usage Home icon
 icon_mail=""                       ## Mail icon
-icon_mail_read=""                  ## Mail read icon
+icon_mail_read=""                  ## Mail read icon
 icon_chat=""                       ## IRC/Chat icon
 icon_music=""                      ## Music icon
 #icon_prog=""                       ## Window icon

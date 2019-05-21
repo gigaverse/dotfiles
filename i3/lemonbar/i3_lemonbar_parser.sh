@@ -239,11 +239,11 @@ while read -r line ; do
             ## Display unreal mail (offlineimap)
             email_arr="${line#???}"
             if [ "${email_arr}" != "0" ]; then
-                mail_set_back=${color_mail}; mail_cicon=${color_sec_b2}; mail_cfore=${color_sec_b2}; mail_icon=${icon_mail}; mail_num=${email_arr}; mail_post_sep=${sep_left}
+                mail_set_back=${color_mail}; mail_cicon=${color_sec_b2}; mail_cfore=${color_sec_b2}; mail_icon=${icon_mail}; mail_num=" ${email_arr}"; mail_post_sep=${sep_left}
               else
                 mail_set_back=${mail_cback}; mail_cicon=${color_icon}; mail_cfore=${color_fore}; mail_icon=${icon_mail_read}; mail_num=""; mail_post_sep=${sep_l_left}
             fi
-            email="%{F${mail_set_back}}${sep_left}%{F${mail_cicon} B${mail_set_back}} %{T2}${mail_icon}%{F${mail_cfore} T1} ${mail_num}"
+            email="%{F${mail_set_back}}${sep_left}%{F${mail_cicon} B${mail_set_back}} %{T2}${mail_icon}%{F${mail_cfore} T1}${mail_num}"
             ;;
         ### End Offlineimp Case ### }}}
 
@@ -353,7 +353,7 @@ while read -r line ; do
             mmpd_arr="${line#???}"
             if [ -z "${mmpd_arr}" ] || [ "${mmpd_arr}" == "none" ]; then
                 ## This can deal with odd issues?
-                mmpd_song="×";
+                mmpd_song="";
               else
                 ## $music_limit will help stop the music from taking over the workspace display on the left.
                 ## Note: you should read http://tldp.org/LDP/abs/html/parameter-substitution.html
@@ -433,9 +433,9 @@ ${diskr}${stab}\
 ${temp}${stab}\
 ${nets_d}${stab}\
 ${nets_u}${stab}\
-${vol}${stab}\
 ${bri}${stab}\
 ${date}${stab}\
 ${time}"
 
+#${vol}${stab}\
 done

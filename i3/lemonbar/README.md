@@ -53,7 +53,7 @@ bar {
 [lemonbar]: https://github.com/LemonBoy/bar
 [i3wm]: https://i3wm.org
 [conky]: https://github.com/brndnmtthws/conky
-[pic]: http://i.imgur.com/SizkXQC.png
+[pic]: http://i.imgur.com/mDJeMoN.png
 [control-pianobar]: https://malabarba.github.io/control-pianobar/
 [cmus]: https://cmus.github.io/
 [mpd]: https://www.musicpd.org/

@@ -15,8 +15,7 @@
             "swallows": [
                {
                   "class": "^St$",
-                  "instance": "^st$",
-                  "title": "nvim"
+                  "instance": "^nvim$"
                }
             ],
             "type": "con"

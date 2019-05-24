@@ -198,7 +198,7 @@ while :; do
     ### Disk Usage Check, "DIC" ### {{{
     if [ $((cnt_disk++)) -ge ${upd_disk} ]; then
         ## Limits to root filesystem. awk cuts header line and shucks leading space
-        printf "%s%s\n" "DIC" "SSD $(df --output=pcent / | awk 'END {print $1}') MEDIA $(df --output=pcent /thighland | awk 'END {print $1}') HDD $(df --output=pcent /king | awk 'END {print $1}')" | tee "${panel_fifo[@]}" > /dev/null
+        printf "%s%s\n" "DIC" "SSD $(df --output=pcent /home | awk 'END {print $1}') MEDIA $(df --output=pcent /thighland | awk 'END {print $1}') HDD $(df --output=pcent /king | awk 'END {print $1}')" | tee "${panel_fifo[@]}" > /dev/null
         cnt_disk=0
     fi
     ### End Disk Usage Check, "DIC" ### }}}

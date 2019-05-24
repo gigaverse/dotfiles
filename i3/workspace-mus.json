@@ -53,7 +53,7 @@
             "swallows": [
                {
                   "class": "^St$",
-                  "instance": "^media_library$"
+                  "instance": "^vis$"
                }
             ],
             "type": "con"

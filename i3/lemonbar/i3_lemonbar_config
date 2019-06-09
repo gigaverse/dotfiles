@@ -20,11 +20,11 @@ music_limit=70
 
 ## This format needs a fork of lemonbar, which supports xft fonts.
 ## The font should have powerline support, if you want the fancy separators.
-font="Source Code Pro Semibold-12"
+font="xos4 Terminus-10"
 
 ## I recommend font awesome for the iconfont, it has the best icon support
 ## I have even of any symbol font. It also has the most symbols.
-iconfont="FontAwesome-12"
+iconfont="FontAwesome5FreeSolid-9"
 
 ## This is for the Screenshot IP Scrubber
 ## You could set this to "" to reduce bar length while toggled.
@@ -111,11 +111,11 @@ color_temp="#ffdc322f"              ## Backgroud for high temp
     mail_cback=${color_sec_b1}
     cpu_cback=${color_sec_b2}
     date_cback=${color_sec_b2}
-    mmpd_cback=${color_sec_b2}
+    mmpd_cback=${color_sec_b1}
     mmpd_alt_cback=${color_sec_b2}
-    bat_cback=${color_sec_b1}
+    bat_cback=${color_sec_b2}
     temp_cback=${color_sec_b2}
-    vol_cback=${color_sec_b2}
+    vol_cback=${color_sec_b1}
     ### End Section Background Colors ### }}}
 ### End Color ### }}}
 

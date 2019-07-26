@@ -46,14 +46,14 @@ bar {
 
 ### **Things I want** ###
 * I am not sure if I can make this set up show i3 keybinding modes in the bar... would like this.
-* Make better separations between joined colored segments.
+* Fix the network usage module
 
 [i3 lemonbar]: https://github.com/electro7/dotfiles/tree/master/.i3/lemonbar
 [lemonbar krypt-n]: https://github.com/krypt-n/bar
 [lemonbar]: https://github.com/LemonBoy/bar
 [i3wm]: https://i3wm.org
 [conky]: https://github.com/brndnmtthws/conky
-[pic]: http://i.imgur.com/mDJeMoN.png
+[pic]: https://i.imgur.com/iWtCvbA.png
 [control-pianobar]: https://malabarba.github.io/control-pianobar/
 [cmus]: https://cmus.github.io/
 [mpd]: https://www.musicpd.org/

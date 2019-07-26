@@ -73,7 +73,7 @@ while :; do
     ### Temperature Check, "TMP" ### {{{
     if [ $((cnt_temp++)) -ge ${upd_temp} ]; then
         ## Removes decimal from Celsius as it is always an integer
-        printf "%s%s\n" "TMP" "$(acpi -t${temp_format} 2>/dev/null | awk 'BEGIN {} /Thermal 0/ {if($6=="C"){printf "%.0f %s",$4,$6} else {if($6=="F"){print $4,$6} else {print "none none"};}}')" | tee "${panel_fifo[@]}" > /dev/null
+	printf "%s%s\n" "TMP" "$(sensors | grep 'Tdie' | awk -F'[ .]+' '{print  $2}' | sed 's/+//')°C" | tee "${panel_fifo[@]}" > /dev/null
         cnt_temp=0
     fi
     ### End Temperature Check, "TMP" ### }}}
@@ -198,7 +198,7 @@ while :; do
     ### Disk Usage Check, "DIC" ### {{{
     if [ $((cnt_disk++)) -ge ${upd_disk} ]; then
         ## Limits to root filesystem. awk cuts header line and shucks leading space
-        printf "%s%s\n" "DIC" "SSD $(df --output=pcent /home | awk 'END {print $1}') MEDIA $(df --output=pcent /thighland | awk 'END {print $1}') HDD $(df --output=pcent /king | awk 'END {print $1}')" | tee "${panel_fifo[@]}" > /dev/null
+        printf "%s%s\n" "DIC" "$(df --output=pcent /home | awk 'END {print $1}')" | tee "${panel_fifo[@]}" > /dev/null
         cnt_disk=0
     fi
     ### End Disk Usage Check, "DIC" ### }}}
@@ -226,7 +226,7 @@ done &
 
 # List of all the monitors/screens you have in your setup
 resolutions=$(xrandr | grep -w connected | sed 's/ primary//'  | awk -F'[ ]+' '{print $3}' \
-    | awk -F'[\+x]' '{height = $2/60 ; print $1"x"height"+"$3"+"$4}')
+    | awk -F'[\+x]' '{height = $2/75 ; print $1"x"height"+"$3"+"$4}')
 count=1
 for res in $resolutions; do
     cat "${panel_fifo[$count]}" | $(dirname $0)/i3_lemonbar_parser.sh \

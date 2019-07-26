@@ -209,16 +209,11 @@ while read -r line ; do
         TMP*)
             ## Display Temperature
             read -r -a temp_arr <<< "${line#???}"
-            temp_arr_val="${temp_arr[0]}"
-            temp_arr_unit="${temp_arr[1]}"
-
+	    temp_marker="${temp_arr[0]}"
+	    temp_arr_val="${temp_arr[1]}"
             if [ "${temp_arr_val}" != "none" ]; then
                 ## Select alert for measurement system
-                if [[ ${temp_arr_unit} == "C" ]]; then
-                    temp_check=$(awk -v x=${temp_arr_val} -v y=${temp_alert_c} 'BEGIN {if (x<y){print 0} else {print 1}}')
-                  else
-                    temp_check=$(awk -v x=${temp_arr_val} -v y=${temp_alert_f} 'BEGIN {if (x<y){print 0} else {print 1}}')
-                fi
+                temp_check=$(awk -v x=${temp_arr_val} -v y=${temp_alert_c} 'BEGIN {if (x<y){print 0} else {print 1}}')
 
                 ## Set alert color
                 if [ ${temp_check} -eq 1 ]; then
@@ -226,7 +221,7 @@ while read -r line ; do
                   else
                     temp_set_back=${temp_cback}; temp_cicon=${color_icon}; temp_cfore=${color_fore};
                 fi
-                temp="%{F${temp_set_back}}${sep_left}%{F${temp_cicon} B${temp_set_back}} %{T2}${icon_temp}%{F${temp_cfore} T1} ${temp_arr_val}${temp_arr_unit}"
+                temp="%{F${temp_set_back}}${sep_left}%{F${temp_cicon} B${temp_set_back}} %{T2}${icon_temp}%{F${temp_cfore} T1} ${temp_marker} ${temp_arr_val}"
               else
                 ## Set if temp fifo missing
                 temp="%{F${temp_cback}}${sep_left}%{F${color_disable} B${temp_cback}} %{T2}${icon_temp}%{F${color_disable} T1} ×"

@@ -20,7 +20,7 @@ music_limit=70
 
 ## This format needs a fork of lemonbar, which supports xft fonts.
 ## The font should have powerline support, if you want the fancy separators.
-font="Source Code Pro Semibold-12"
+font="Source Code Pro Semibold:size=12:antialias=true:autohint=true"
 
 ## I recommend font awesome for the iconfont, it has the best icon support
 ## I have even of any symbol font. It also has the most symbols.
@@ -141,10 +141,10 @@ icon_time=""                       ## Time icon
 icon_cal=""                        ## Calendar icon
 icon_cpu=""                        ## CPU icon
 #icon_cpu=""                        ## CPU icon
-icon_mem=""                        ## MEM icon
+icon_mem=""                        ## MEM icon
 ## Real ram icon #icon_mem=""                        ## MEM icon
-icon_dl=""                         ## Download icon
-icon_ul=""                         ## Upload icon
+icon_dl=""                         ## Download icon
+icon_ul=""                         ## Upload icon
 icon_vol=""                        ## Volume icon
 icon_bri=""                        ## Brightness icon
 icon_disk=""                       ## Disk usage icon
@@ -164,7 +164,7 @@ icon_bat2=""                       ## Battery icon
 icon_bat3=""                       ## Battery icon
 icon_bat4=""                       ## Battery icon
 icon_bat_time=""                   ## Battery time icon
-icon_temp=""                       ## Temperature icon
+icon_temp=""                       ## Temperature icon
 icon_wifi=""                       ## Wifi percent icon
 icon_local_eth=""                  ## Local IP eth icon
 icon_local_wifi=""                 ## Local IP wifi icon

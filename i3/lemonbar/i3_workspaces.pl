@@ -12,8 +12,6 @@
 #
 # Uses AnyEvent I3 0.8 -> https://metacpan.org/module/AnyEvent::I3
 # Based in i3-wsbar of Michael Stapelberg -> http://code.stapelberg.de/git/i3/tree/contrib/i3-wsbar
-#
-# 16 feb 2015 - Electro7
 
 use strict;
 use warnings;

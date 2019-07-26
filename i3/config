@@ -12,8 +12,8 @@ font xos4 Terminess Powerline:monospace 8
 
 ### THEME ###
 
-set $FOCUS #989898
-set $UNFOCUS #3c3b37
+set $FOCUS #50fa7b
+set $UNFOCUS #282a36
 
 #some aliases for ease of reading
 set $mod Mod4
@@ -30,7 +30,7 @@ client.urgent 		    $FOCUS      $FOCUS          $FOCUS      $FOCUS
 client.background 	    $UNFOCUS
 
 ### Borders ###
-new_window pixel 4
+new_window pixel 1
 new_float pixel 4
 
 focus_follows_mouse yes
@@ -107,11 +107,11 @@ bindsym $alt+Shift+n move down
 bindsym $alt+Shift+e move up
 bindsym $alt+Shift+i move right
 
-bindsym $mod+q kill
+bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 # enter fullscreen mode for the focused container
 bindsym $alt+f fullscreen
 
-bindsym $alt+t layout toggle
+bindsym $alt+t split toggle
 
 bindsym $mod+o sticky toggle
 
@@ -212,11 +212,13 @@ bindsym $mod+x [urgent=latest] focus
     ## (adding "(?i)" means ignore case)
     ### Program Floating ### {{{
     for_window [class="mpv|feh|Pinentry|Gnome-calculator"] floating enable
+    for_window [instance="clerk"] floating enable; sticky enable; exec --no-startup-id hover left
+
     for_window [title="Steam - Update*|Steam - Self Updater|Event Tester|termdown"] floating enable
     ### End Program Floating ### }}}
 
     ## Disable border
-    for_window [class="mpv|St|(?i)chromium|terminator|qutebrowser|manaplus|surf|zathura|discord|Mailspring"] border 1pixel
+    for_window [class="mpv|Sxiv|kitty|st-256color|(?i)chromium|terminator|qutebrowser|manaplus|surf|zathura|discord|Mailspring"] border 1pixel
 
     ## Tab view
     for_window [class="Virt-manager"] focus child, layout tabbed, focus
@@ -236,27 +238,27 @@ bindsym $mod+x [urgent=latest] focus
 exec --no-startup-id discord
 exec --no-startup-id fehbg
 exec --no-startup-id xss-lock -- i3lock -e -c 2E3436
-
 exec --no-startup-id i3-msg 'workspace $ws1; append_layout ~/.config/i3/workspace-1.json'
 exec --no-startup-id i3-msg 'workspace $ws2; append_layout ~/.config/i3/workspace-2.json'
+exec --no-startup-id i3-msg 'workspace $ws3; append_layout ~/.config/i3/workspace-lib.json'
 exec --no-startup-id i3-msg 'workspace $ws5; append_layout ~/.config/i3/workspace-mutt.json'
 exec --no-startup-id i3-msg 'workspace $ws11; append_layout ~/.config/i3/workspace-mus.json'
 
 exec --no-startup-id i3-msg "workspace $ws1; exec qutebrowser"
-exec --no-startup-id i3-msg "workspace $ws1; exec st -n browserterm"
+exec --no-startup-id i3-msg "workspace $ws1; exec kitty --name browserterm"
 
-exec --no-startup-id i3-msg "workspace $ws2; exec st -n nvim"
-exec --no-startup-id i3-msg "workspace $ws2; exec st -n nvimterm1"
-exec --no-startup-id i3-msg "workspace $ws2; exec st -n nvimterm2"
+exec --no-startup-id i3-msg "workspace $ws2; exec kitty --name nvim"
+exec --no-startup-id i3-msg "workspace $ws2; exec kitty --name nvimterm1"
+exec --no-startup-id i3-msg "workspace $ws2; exec kitty --name nvimterm2"
 
-exec --no-startup-id i3-msg "workspace $ws3; exec  st -n media_library -e ncmpcpp -s media_library"
+exec --no-startup-id i3-msg "workspace $ws3; exec  kitty --name media_library -e ncmpcpp -s media_library"
 
-exec --no-startup-id i3-msg "workspace $ws11; exec  st -n playlist -e ncmpcpp -s playlist"
-exec --no-startup-id i3-msg "workspace $ws11; exec  st -n vis -e vis"
-exec --no-startup-id i3-msg "workspace $ws11; exec  st -n tty-clock -e tty-clock -C 2 -c -s"
+exec --no-startup-id i3-msg "workspace $ws11; exec  kitty --name playlist -e ncmpcpp -s playlist"
+exec --no-startup-id i3-msg "workspace $ws11; exec  kitty --name vis -e vis"
+exec --no-startup-id i3-msg "workspace $ws11; exec  kitty --name tty-clock -e tty-clock -C 2 -c -s"
 
-exec --no-startup-id i3-msg "workspace $ws5; exec  st -n neomutt -e neomutt"
-exec --no-startup-id i3-msg "workspace $ws5; exec  st -n muttterm"
+exec --no-startup-id i3-msg "workspace $ws5; exec  kitty --name neomutt -e neomutt"
+exec --no-startup-id i3-msg "workspace $ws5; exec  kitty --name muttterm"
 
 
 

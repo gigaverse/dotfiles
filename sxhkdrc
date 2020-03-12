@@ -3,18 +3,10 @@ super + Return
 	$TERMINAL
 super + r
 	rofi -show run
-super + f
-	$TERMINAL -e $FILE
-super + e
-	$TERMINAL -e neomutt
 super + m
 	clerk --no-tmux-ui -t
 super + shift + m
 	$TERMINAL -n clerk -e clerk
-super + n
-	$TERMINAL -e newsboat
-super + i
-	$TERMINAL -e htop
 super + slash
 	pkill -USR1 redshift
 #super + y
@@ -66,6 +58,8 @@ super + Down
 	lmc toggle
 # Changes to next/previous tracks
 super + {Left,Right}
+	lmc {prev,next}
+XF86Audio{Prev,Next}
 	lmc {prev,next}
 # Restart track
 super + Up

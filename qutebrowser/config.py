@@ -9,8 +9,8 @@ dracula.draw.blood(c, {
         'horizontal': 8
     },
     'font': {
-        'family': 'Menlo, Terminus, Monaco, Monospace',
-        'size': 10
+        'family': 'Source Code Pro Semibold',
+        'size': 12
     }
 })
 
@@ -20,10 +20,11 @@ dracula.draw.blood(c, {
 c.url.start_pages = ["file:///home/youssef/Projects/StartPage/homepage.html"]
 config.set('tabs.padding', { 'top': 5, 'bottom': 5, 'left': 5, 'right': 5 })
 
-# Default monospace fonts. Whenever "monospace" is used in a font
+c.colors.webpage.prefers_color_scheme_dark = True
+
 # setting, it's replaced with the fonts listed here.
 # Type: Font
-c.fonts.monospace = '"IBM Plex Mono", Terminus, Monospace, "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", monospace, Fixed, Consolas, Terminal'
+c.fonts.default_family = ["Source Code Pro Semibold", "IBM Plex Mono", "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", Fixed, Consolas, Terminal]
 
 # Font family for standard fonts.
 # Type: FontFamily

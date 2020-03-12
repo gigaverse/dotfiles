@@ -46,11 +46,11 @@ set $Locker i3lock -e -c 2E3436 && sleep 1
 
 set $ws1 "1:web"
 set $ws2 "2:code"
-set $ws3 "3:library"
+set $ws3 "3:music"
 set $ws4 "4:discord"
 set $ws5 "5:mail"
 set $ws6 "6:video"
-set $ws7 "7:games"
+set $ws7 "7:game"
 set $ws8 "8:file"
 set $ws9 "9:etc1"
 set $ws0 "10:etc2"
@@ -66,16 +66,16 @@ set $ws15 "15:etc"
 # DP-2: A 60Hz  1440x900  Display (Secondary)
 # xrandr is handled by
 
-workspace $ws1 output DP-0
-workspace $ws2 output DP-0
-workspace $ws3 output DP-0
-workspace $ws4 output DP-0
-workspace $ws5 output DP-0
-workspace $ws6 output DP-0
-workspace $ws7 output DP-0
-workspace $ws8 output DP-0
-workspace $ws9 output DP-0
-workspace $ws0 output DP-0
+workspace $ws1 output DP-4
+workspace $ws2 output DP-4
+workspace $ws3 output DP-4
+workspace $ws4 output DP-4
+workspace $ws5 output DP-4
+workspace $ws6 output DP-4
+workspace $ws7 output DP-4
+workspace $ws8 output DP-4
+workspace $ws9 output DP-4
+workspace $ws0 output DP-4
 
 workspace $ws11 output DP-2
 workspace $ws12 output DP-2

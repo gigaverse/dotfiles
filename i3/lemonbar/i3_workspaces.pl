@@ -13,6 +13,7 @@
 # Uses AnyEvent I3 0.8 -> https://metacpan.org/module/AnyEvent::I3
 # Based in i3-wsbar of Michael Stapelberg -> http://code.stapelberg.de/git/i3/tree/contrib/i3-wsbar
 
+binmode STDOUT, ":encoding(UTF-8)";
 use strict;
 use warnings;
 use AnyEvent::I3;

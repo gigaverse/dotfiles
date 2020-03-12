@@ -7,6 +7,7 @@ Plug 'LukeSmithxyz/vimling'
 Plug 'bling/vim-airline'
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-commentary'
+Plug 'urbit/hoon.vim'
 Plug 'vifm/vifm.vim'
 " A Git wrapper so awesome, it should be illegal
 " https://github.com/tpope/vim-fugitive/blob/master/README.markdown
@@ -22,7 +23,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 
 " An alternative indentation script for python
 Plug 'vim-scripts/indentpython.vim'
-
+Plug 'jooize/vim-colemak'
 " provides insert mode auto-completion for quotes, parens, brackets, etc.
 " :help delimitMate
 Plug 'raimondi/delimitmate'
@@ -76,7 +77,7 @@ Plug 'adimit/prolog.vim'
 Plug 'OmniSharp/omnisharp-vim'
 
 " Colemak binds for vim
-Plug 'jooize/vim-colemak'
+"Plug 'jooize/vim-colemak'
 call plug#end()
 set bg=light
 set go=a
@@ -399,8 +400,7 @@ let g:ale_echo_msg_format = '%severity% [%linter%] %s'
 "highlight AleErrorLine guibg=NONE gui=italic
 let g:ale_lint_delay = 1000 " 1 sec delay to run linter after text is changed
 let g:ale_completion_enabled = 1
-let g:ale_linters = { 'cs': ['OmniSharp'] }
-
+let g:ale_linters = { 'hoon': ['hoon-language-server'] }
 
 " Syntastic
 let g:syntastic_python_checkers = ['pylint', 'flake8']

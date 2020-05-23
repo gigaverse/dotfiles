@@ -1,14 +1,21 @@
 call plug#begin('~/.config/nvim/plugged')
-
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
 Plug 'tpope/vim-surround'
-Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'LukeSmithxyz/vimling'
 Plug 'bling/vim-airline'
-Plug 'vimwiki/vimwiki'
+Plug 'mmai/vim-markdown-wiki'
 Plug 'tpope/vim-commentary'
-Plug 'urbit/hoon.vim'
 Plug 'vifm/vifm.vim'
+Plug 'honza/vim-snippets'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'urbit/hoon.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 " A Git wrapper so awesome, it should be illegal
 " https://github.com/tpope/vim-fugitive/blob/master/README.markdown
 Plug 'tpope/vim-fugitive'
@@ -23,7 +30,6 @@ Plug 'jistr/vim-nerdtree-tabs'
 
 " An alternative indentation script for python
 Plug 'vim-scripts/indentpython.vim'
-Plug 'jooize/vim-colemak'
 " provides insert mode auto-completion for quotes, parens, brackets, etc.
 " :help delimitMate
 Plug 'raimondi/delimitmate'
@@ -39,9 +45,6 @@ Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 
-" Retro groove color scheme for Vim
-Plug 'morhetz/gruvbox'
-
 "A Vim plugin which shows a git diff in the gutter
 Plug 'airblade/vim-gitgutter'
 
@@ -54,16 +57,6 @@ Plug 'junegunn/fzf.vim'
 "Perform all your vim insert mode completions with Tab
 Plug 'ervandew/supertab'
 
-" jedi autocompletion library for VIM (python)
-Plug 'davidhalter/jedi-vim'
-
-" asynchronous completion framework
-Plug 'shougo/deoplete.nvim'
-Plug 'zchee/deoplete-jedi'
-
-" mustache templates
-Plug 'mustache/vim-mustache-handlebars'
-
 " https://github.com/xolox/vim-misc
 Plug 'xolox/vim-misc'
 
@@ -73,11 +66,8 @@ Plug 'xolox/vim-session'
 "Prolog integration for Vim
 Plug 'adimit/prolog.vim'
 
-"C# Integration
-Plug 'OmniSharp/omnisharp-vim'
-
 " Colemak binds for vim
-"Plug 'jooize/vim-colemak'
+Plug 'jooize/vim-colemak'
 call plug#end()
 set bg=light
 set go=a
@@ -136,9 +126,17 @@ set clipboard=unnamedplus
 " Runs a script that cleans out tex build files whenever I close out of a .tex file.
 	autocmd VimLeave *.tex !texclear %
 
+" Rust configuration
+	let g:rustfmt_autosave = 1
+
+" Flutter Binds
+nnoremap <leader>fa :FlutterRun<cr>
+nnoremap <leader>fq :FlutterQuit<cr>
+nnoremap <leader>fr :FlutterHotReload<cr>
+nnoremap <leader>fR :FlutterHotRestart<cr>
+nnoremap <leader>fD :FlutterVisualDebug<cr>
+
 " Ensure files are read as what I want:
-	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
@@ -162,100 +160,9 @@ set clipboard=unnamedplus
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
 " Navigating with guides
-	inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 	vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 	map <leader><leader> <Esc>/<++><Enter>"_c4l
 
-"""LATEX
-	" Word count:
-	autocmd FileType tex map <leader>w :w !detex \| wc -w<CR>
-	" Code snippets
-	autocmd FileType tex inoremap ,fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><Esc>6kf}i
-	autocmd FileType tex inoremap ,fi \begin{fitch}<Enter><Enter>\end{fitch}<Enter><Enter><++><Esc>3kA
-	autocmd FileType tex inoremap ,exe \begin{exe}<Enter>\ex<Space><Enter>\end{exe}<Enter><Enter><++><Esc>3kA
-	autocmd FileType tex inoremap ,em \emph{}<++><Esc>T{i
-	autocmd FileType tex inoremap ,bf \textbf{}<++><Esc>T{i
-	autocmd FileType tex vnoremap , <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
-	autocmd FileType tex inoremap ,it \textit{}<++><Esc>T{i
-	autocmd FileType tex inoremap ,ct \textcite{}<++><Esc>T{i
-	autocmd FileType tex inoremap ,cp \parencite{}<++><Esc>T{i
-	autocmd FileType tex inoremap ,glos {\gll<Space><++><Space>\\<Enter><++><Space>\\<Enter>\trans{``<++>''}}<Esc>2k2bcw
-	autocmd FileType tex inoremap ,x \begin{xlist}<Enter>\ex<Space><Enter>\end{xlist}<Esc>kA<Space>
-	autocmd FileType tex inoremap ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
-	autocmd FileType tex inoremap ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
-	autocmd FileType tex inoremap ,li <Enter>\item<Space>
-	autocmd FileType tex inoremap ,ref \ref{}<Space><++><Esc>T{i
-	autocmd FileType tex inoremap ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><Esc>4kA{}<Esc>i
-	autocmd FileType tex inoremap ,ot \begin{tableau}<Enter>\inp{<++>}<Tab>\const{<++>}<Tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><Esc>5kA{}<Esc>i
-	autocmd FileType tex inoremap ,can \cand{}<Tab><++><Esc>T{i
-	autocmd FileType tex inoremap ,con \const{}<Tab><++><Esc>T{i
-	autocmd FileType tex inoremap ,v \vio{}<Tab><++><Esc>T{i
-	autocmd FileType tex inoremap ,a \href{}{<++>}<Space><++><Esc>2T{i
-	autocmd FileType tex inoremap ,sc \textsc{}<Space><++><Esc>T{i
-	autocmd FileType tex inoremap ,chap \chapter{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap ,sec \section{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap ,ssec \subsection{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap ,sssec \subsubsection{}<Enter><Enter><++><Esc>2kf}i
-	autocmd FileType tex inoremap ,st <Esc>F{i*<Esc>f}i
-	autocmd FileType tex inoremap ,beg \begin{DELRN}<Enter><++><Enter>\end{DELRN}<Enter><Enter><++><Esc>4k0fR:MultipleCursorsFind<Space>DELRN<Enter>c
-	autocmd FileType tex inoremap ,up <Esc>/usepackage<Enter>o\usepackage{}<Esc>i
-	autocmd FileType tex nnoremap ,up /usepackage<Enter>o\usepackage{}<Esc>i
-	autocmd FileType tex inoremap ,tt \texttt{}<Space><++><Esc>T{i
-	autocmd FileType tex inoremap ,bt {\blindtext}
-	autocmd FileType tex inoremap ,nu $\varnothing$
-	autocmd FileType tex inoremap ,col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<Esc>5kA
-	autocmd FileType tex inoremap ,rn (\ref{})<++><Esc>F}i
-
-"""HTML
-	autocmd FileType html inoremap ,b <b></b><Space><++><Esc>FbT>i
-	autocmd FileType html inoremap ,it <em></em><Space><++><Esc>FeT>i
-	autocmd FileType html inoremap ,1 <h1></h1><Enter><Enter><++><Esc>2kf<i
-	autocmd FileType html inoremap ,2 <h2></h2><Enter><Enter><++><Esc>2kf<i
-	autocmd FileType html inoremap ,3 <h3></h3><Enter><Enter><++><Esc>2kf<i
-	autocmd FileType html inoremap ,p <p></p><Enter><Enter><++><Esc>02kf>a
-	autocmd FileType html inoremap ,a <a<Space>href=""><++></a><Space><++><Esc>14hi
-	autocmd FileType html inoremap ,e <a<Space>target="_blank"<Space>href=""><++></a><Space><++><Esc>14hi
-	autocmd FileType html inoremap ,ul <ul><Enter><li></li><Enter></ul><Enter><Enter><++><Esc>03kf<i
-	autocmd FileType html inoremap ,li <Esc>o<li></li><Esc>F>a
-	autocmd FileType html inoremap ,ol <ol><Enter><li></li><Enter></ol><Enter><Enter><++><Esc>03kf<i
-	autocmd FileType html inoremap ,im <img src="" alt="<++>"><++><esc>Fcf"a
-	autocmd FileType html inoremap ,td <td></td><++><Esc>Fdcit
-	autocmd FileType html inoremap ,tr <tr></tr><Enter><++><Esc>kf<i
-	autocmd FileType html inoremap ,th <th></th><++><Esc>Fhcit
-	autocmd FileType html inoremap ,tab <table><Enter></table><Esc>O
-	autocmd FileType html inoremap ,gr <font color="green"></font><Esc>F>a
-	autocmd FileType html inoremap ,rd <font color="red"></font><Esc>F>a
-	autocmd FileType html inoremap ,yl <font color="yellow"></font><Esc>F>a
-	autocmd FileType html inoremap ,dt <dt></dt><Enter><dd><++></dd><Enter><++><esc>2kcit
-	autocmd FileType html inoremap ,dl <dl><Enter><Enter></dl><enter><enter><++><esc>3kcc
-	autocmd FileType html inoremap &<space> &amp;<space>
-	autocmd FileType html inoremap á &aacute;
-	autocmd FileType html inoremap é &eacute;
-	autocmd FileType html inoremap í &iacute;
-	autocmd FileType html inoremap ó &oacute;
-	autocmd FileType html inoremap ú &uacute;
-	autocmd FileType html inoremap ä &auml;
-	autocmd FileType html inoremap ë &euml;
-	autocmd FileType html inoremap ï &iuml;
-	autocmd FileType html inoremap ö &ouml;
-	autocmd FileType html inoremap ü &uuml;
-	autocmd FileType html inoremap ã &atilde;
-	autocmd FileType html inoremap ẽ &etilde;
-	autocmd FileType html inoremap ĩ &itilde;
-	autocmd FileType html inoremap õ &otilde;
-	autocmd FileType html inoremap ũ &utilde;
-	autocmd FileType html inoremap ñ &ntilde;
-	autocmd FileType html inoremap à &agrave;
-	autocmd FileType html inoremap è &egrave;
-	autocmd FileType html inoremap ì &igrave;
-	autocmd FileType html inoremap ò &ograve;
-	autocmd FileType html inoremap ù &ugrave;
-
-
-""".bib
-	autocmd FileType bib inoremap ,a @article{<Enter>author<Space>=<Space>{<++>},<Enter>year<Space>=<Space>{<++>},<Enter>title<Space>=<Space>{<++>},<Enter>journal<Space>=<Space>{<++>},<Enter>volume<Space>=<Space>{<++>},<Enter>pages<Space>=<Space>{<++>},<Enter>}<Enter><++><Esc>8kA,<Esc>i
-	autocmd FileType bib inoremap ,b @book{<Enter>author<Space>=<Space>{<++>},<Enter>year<Space>=<Space>{<++>},<Enter>title<Space>=<Space>{<++>},<Enter>publisher<Space>=<Space>{<++>},<Enter>}<Enter><++><Esc>6kA,<Esc>i
-	autocmd FileType bib inoremap ,c @incollection{<Enter>author<Space>=<Space>{<++>},<Enter>title<Space>=<Space>{<++>},<Enter>booktitle<Space>=<Space>{<++>},<Enter>editor<Space>=<Space>{<++>},<Enter>year<Space>=<Space>{<++>},<Enter>publisher<Space>=<Space>{<++>},<Enter>}<Enter><++><Esc>8kA,<Esc>i
 
 "MARKDOWN
 	autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
@@ -348,6 +255,15 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ --ignore "**/*.pyc"
       \ -g ""'
 
+" python venv
+let pipenv_venv_path = system('pipenv --venv')
+if $PIPENV_ACTIVE == 1
+  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
+  let g:ycm_python_binary_path = venv_path . '/bin/python'
+else
+  let g:ycm_python_binary_path = 'python'
+endif
+
 " CtrlP Tag Jump
 " (π is ALT+P in osx)
 nnoremap <M-p> :CtrlPtjump<CR>
@@ -359,8 +275,8 @@ au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <c-t> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-t> :exe "tabn ".g:lasttab<cr>
 " Move between tabs with ALT-J (¶) and ALT-K (§)
-nnoremap <A-j> :tabprevious<CR>
-nnoremap <A-k> :tabnext<CR>
+nnoremap <A-n> :tabprevious<CR>
+nnoremap <A-e> :tabnext<CR>
 " ALT-T creates a new empty tab
 nnoremap <A-t> :tabnew<CR>
 
@@ -378,13 +294,6 @@ command! -bang -nargs=* Ag
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
 
-" Jedi-Vim
-let g:jedi#show_call_signatures = "0"
-autocmd FileType python call jedi#configure_call_signatures()
-" \d opens goToDefinition in a new tab
-nnoremap <buffer><leader>d :tab split<CR> :call jedi#goto()<CR>
-let g:jedi#force_py_version = 3
-
 " Ale
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_error = ''
@@ -400,10 +309,18 @@ let g:ale_echo_msg_format = '%severity% [%linter%] %s'
 "highlight AleErrorLine guibg=NONE gui=italic
 let g:ale_lint_delay = 1000 " 1 sec delay to run linter after text is changed
 let g:ale_completion_enabled = 1
-let g:ale_linters = { 'hoon': ['hoon-language-server'] }
 
 " Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint', 'flake8']
+let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_python_pylint_post_args="--max-line-length=120 --disable=C0111"
 
 " SuperTab

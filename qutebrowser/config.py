@@ -24,7 +24,7 @@ c.colors.webpage.prefers_color_scheme_dark = True
 
 # setting, it's replaced with the fonts listed here.
 # Type: Font
-c.fonts.default_family = ["Source Code Pro Semibold", "IBM Plex Mono", "DejaVu Sans Mono", Monaco, "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", Courier, "Liberation Mono", Fixed, Consolas, Terminal]
+c.fonts.default_family = ["Source Code Pro Semibold", "IBM Plex Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", "Liberation Mono"]
 
 # Font family for standard fonts.
 # Type: FontFamily

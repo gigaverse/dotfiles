@@ -201,7 +201,7 @@ myKeys =
         , ("M-<Tab>", sendMessage NextLayout)                              -- Switch to next layout
         , ("M-S-s", sendMessage ToggleStruts)                          -- Toggles struts
         , ("M-S-k", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
-        , ("M-S-=", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
+        , ("M-f", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
         , ("M-S-<Space>", sendMessage (T.Toggle "float"))
         , ("M-S-y", sendMessage $ Toggle REFLECTY)
         , ("M-S-m", sendMessage $ Toggle MIRROR)

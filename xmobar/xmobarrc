@@ -1,8 +1,8 @@
 -- http://projects.haskell.org/xmobar/
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
-Config { font    = "xft:Source Code Pro:pixelsize=12:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:JoyPixels:pixelsize=12" ]
+Config { font    = "xft:mononoki:pixelsize=14:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:JoyPixels:pixelsize=14" ]
        , bgColor = "#282A36"
        , fgColor = "#F8F8F2"
        , position = Top

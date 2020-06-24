@@ -1,6 +1,6 @@
 # Basic settings
 colorscheme dracula
-set-option global tabstop 2
+set-option global tabstop 4
 set-option global indentwidth 4
 add-highlighter global/ number-lines -relative -hlcursor
 add-highlighter global/ wrap
@@ -49,6 +49,9 @@ map global normal n j
 # Extra bindings
 map global normal <c-p> ': fzf-mode<ret>'
 
+hook global WinSetOption filetype=asciidoc %{
+    set-option window lintcmd "proselint"
+}
 
 def ide %{
     rename-client main
@@ -63,12 +66,16 @@ def ide %{
 
 # Rust
 hook global WinSetOption filetype=rust %{
-	hook window -group rust-inlay-hints BufReload .* rust-analyzer-inlay-hints
-        hook window -group rust-inlay-hints NormalIdle .* rust-analyzer-inlay-hints
-        hook window -group rust-inlay-hints InsertIdle .* rust-analyzer-inlay-hints
-        hook -once -always window WinSetOption filetype=.* %{
-        	remove-hooks window rust-inlay-hints
-        }
+    hook window -group rust-inlay-hints BufReload .* rust-analyzer-inlay-hints
+    hook window -group rust-inlay-hints NormalIdle .* rust-analyzer-inlay-hints
+    hook window -group rust-inlay-hints InsertIdle .* rust-analyzer-inlay-hints
+    hook -once -always window WinSetOption filetype=.* %{
+    	remove-hooks window rust-inlay-hints
+    }
+}
+
+hook global BufSetOption filetype=rust %{
+    set-option buffer formatcmd 'rustfmt'
 }
 
 hook global WinSetOption filetype=<language> %{

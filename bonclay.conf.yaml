@@ -15,8 +15,9 @@ spec:
   # ../../examplefile: ../file
   # ~/example dir: dir
   # ../example dir/some other dir: ../new dir
-    ~/.config/i3: i3
+    ~/.config/kak: kak
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.config/qutebrowser/config.py: qutebrowser/config.py
-    ~/.config/sxhkd/sxhkdrc: sxhkdrc
     ~/.config/kitty/kitty.conf: kitty.conf
+    ~/.config/xmobar: xmobar
+    ~/.xmonad: xmonad

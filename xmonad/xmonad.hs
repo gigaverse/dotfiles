@@ -226,6 +226,7 @@ myKeys =
     -- Scratchpads
         , ("M-S-<Return>", namedScratchpadAction myScratchPads "terminal")
         , ("M-C-c", namedScratchpadAction myScratchPads "ncmpcpp")
+        , ("M-C-d", namedScratchpadAction myScratchPads "discord")
 
     -- Open My Preferred Terminal. I also run the FISH shell. Setting FISH as my default shell
     -- breaks some things so I prefer to just launch "fish" when I open a terminal.
@@ -303,6 +304,7 @@ floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
 
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "ncmpcpp" spawnNpp findNpp manageNpp
+                , NS "discord" spawnDiscord findDiscord manageDiscord
                 ]
 
     where
@@ -322,3 +324,12 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
+
+    spawnDiscord = myDiscord
+    findDiscord =? resource =? "Discord"
+    manageDiscord = customFloading $ W.RationalRect l t w h
+    									where
+        							h = 0.9
+        							w = 0.9
+        							t = 0.95 -h
+        							l = 0.95 -w

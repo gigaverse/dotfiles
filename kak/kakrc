@@ -1,7 +1,7 @@
 # Basic settings
 colorscheme dracula
-set-option global tabstop 4
-set-option global indentwidth 4
+set-option global tabstop 2
+set-option global indentwidth 2
 add-highlighter global/ number-lines -relative -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
@@ -39,6 +39,7 @@ map global normal f e
 map global normal F E
 map global normal k n
 map global normal K N
+map global normal l s
 map global normal s i
 map global normal h h
 map global normal i l

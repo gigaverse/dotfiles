@@ -1,5 +1,4 @@
 # Basic settings
-colorscheme dracula
 set-option global tabstop 2
 set-option global indentwidth 2
 add-highlighter global/ number-lines -relative -hlcursor
@@ -10,6 +9,8 @@ add-highlighter global/ show-matching
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
 plug "andreyorst/fzf.kak"
+
+plug "TeddyDD/kakoune-wiki"
 
 plug "ul/kak-lsp" do %{
   cargo install --locked --force --path .
@@ -33,6 +34,8 @@ plug 'delapouite/kakoune-buffers' %{
   map global normal b ': enter-buffers-mode<ret>' -docstring 'buffers'
   map global normal B ': enter-user-mode -lock buffers<ret>' -docstring 'buffers (lock)'
 }
+
+wiki-setup %sh{ echo $HOME/wiki }
 
 # Colemak
 map global normal f e

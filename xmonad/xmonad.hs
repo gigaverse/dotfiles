@@ -67,7 +67,7 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
-myFont          = "xft:Source Code Pro:regular:pixelsize=12"
+myFont          = "mononoki:regular:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
 myTerminal      = "st"      -- Sets default terminal
 myTextEditor    = "nvim"     -- Sets default text editor

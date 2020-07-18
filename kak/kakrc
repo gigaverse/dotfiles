@@ -1,6 +1,6 @@
 # Basic settings
 set-option global tabstop 2
-set-option global indentwidth 2
+set-option global indentwidth 0
 add-highlighter global/ number-lines -relative -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
@@ -11,6 +11,8 @@ source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/fzf.kak"
 
 plug "TeddyDD/kakoune-wiki"
+plug 'delapouite/kakoune-livedown'
+plug "alexherbo2/auto-pairs.kak"
 
 plug "ul/kak-lsp" do %{
   cargo install --locked --force --path .
@@ -78,6 +80,8 @@ hook global WinSetOption filetype=rust %{
     }
 }
 
+set-option global lsp_server_configuration rust.clippy_preference="on"
+
 hook global BufSetOption filetype=rust %{
     set-option buffer formatcmd 'rustfmt'
 }
@@ -89,6 +93,14 @@ hook global WinSetOption filetype=<language> %{
 	hook -once -always window WinSetOption filetype=.* %{
 		remove-hooks window semantic-tokens
 	}
+}
+
+hook global WinSetOption filetype=python %{
+    set-option window lintcmd %{ run() { pylint --msg-template='{path}:{line}:{column}: {category}: {msg_id}: {msg} ({symbol})' "$1" | awk -F: 'BEGIN { OFS=":" } { if (NF == 6) { $3 += 1; print } }'; } && run }
+}
+
+hook global WinSetOption filetype=python %{
+    set-option window lintcmd "flake8 --filename='*' --format='%%(path)s:%%(row)d:%%(col)d: error: %%(text)s' --ignore=E121,E123,E126,E226,E24,E704,W503,W504,E501,E221,E127,E128,E129,F405"
 }
 
 hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{

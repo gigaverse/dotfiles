@@ -67,26 +67,27 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
-myFont          = "mononoki:regular:pixelsize=12"
+myFont          = "mononoki:bold:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
 myTerminal      = "st"      -- Sets default terminal
-myTextEditor    = "nvim"     -- Sets default text editor
-myBorderWidth   = 2         -- Sets border width for windows
+myTextEditor    = "kak"     -- Sets default text editor
+myBorderWidth   = 0         -- Sets border width for windows
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main = do
     -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/gigaverse/.config/xmobar/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/gigaverse/.config/xmobar/xmobarrc.hs"
+    xmproc1 <- spawnPipe "xmobar -x 0 /home/gigaverse/.config/xmobar/xmobarrc-b.hs"
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x
-                        , ppCurrent = xmobarColor "#5af78e" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#5af78e" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#bd93f9" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#4d4d4d" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#bfbfbf" "" . shorten 80     -- Title of active window in xmobar
+                        , ppCurrent = xmobarColor "#859900" "" . wrap "[" "]" -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#859900" ""                -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#6c71c4" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#586e75" ""        -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#073642" "" . shorten 80     -- Title of active window in xmobar
                         , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#FF6E67" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
@@ -98,8 +99,8 @@ main = do
         , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
-        , normalBorderColor  = "#282a36"
-        , focusedBorderColor = "#4d4d4d"
+        , normalBorderColor  = "#002b36"
+        , focusedBorderColor = "#eee8d5"
         } `additionalKeysP`         myKeys
 
 ------------------------------------------------------------------------
@@ -107,8 +108,8 @@ main = do
 ------------------------------------------------------------------------
 myStartupHook = do
           --spawnOnce "emacs --daemon &"
-          setWMName "LG3D"
-          --spawnOnce "exec /usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --transparent true --alpha 0 --tint 0x292d3e --height 19 &"
+          setWMName "FLEXWM"
+          spawnOnce "exec /usr/bin/trayer --edge bottom --align left --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 0 --tint 0xeee8d5 --height 17 &"
 
 ------------------------------------------------------------------------
 ---GRID SELECT
@@ -144,10 +145,9 @@ myKeys =
         [ ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
-	, ("M-S-x", spawn "prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"")
-	, ("M-S-s", dzenConfig (timeout 10 >=> onCurr xScreen) "foobar")
+				, ("M-S-x", spawn "prompt \"Shutdown computer?\" \"sudo -A shutdown -h now\"")
+				, ("M-S-s", dzenConfig (timeout 10 >=> onCurr xScreen) "foobar")
 
-    -- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
         , ("M-S-q", killAll)                         -- Kill all the windows on current workspace
 
@@ -166,8 +166,8 @@ myKeys =
           , ("Steam", "steam")
           ])
 
-        , ("M-S-g", goToSelected $ mygridConfig myColorizer)
-        , ("M-S-b", bringSelected $ mygridConfig myColorizer)
+--        , ("M-S-g", goToSelected $ mygridConfig myColorizer)
+--        , ("M-S-b", bringSelected $ mygridConfig myColorizer)
 	, ("M-r", spawn "rofi -show run")
 
     -- Extras
@@ -231,6 +231,7 @@ myKeys =
     -- Open My Preferred Terminal. I also run the FISH shell. Setting FISH as my default shell
     -- breaks some things so I prefer to just launch "fish" when I open a terminal.
         , ("M-<Return>", spawn (myTerminal))
+
 
 
     -- Multimedia Keys
@@ -316,7 +317,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 1.0
                  t = 0.02
                  l = 0.0
-    spawnNpp  = myTerminal ++  " -n ncmpcpp 'ncmpcpp'"
+    spawnNpp  = myTerminal ++  " -n ncmpcpp -e ncmpcpp"
     findNpp   = resource =? "ncmpcpp"
     manageNpp = customFloating $ W.RationalRect l t w h
                  where
@@ -325,9 +326,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  t = 0.95 -h
                  l = 0.95 -w
 
-    spawnDiscord = myDiscord
-    findDiscord =? resource =? "Discord"
-    manageDiscord = customFloading $ W.RationalRect l t w h
+    spawnDiscord = "discord"
+    findDiscord  = resource =? "Discord"
+    manageDiscord = customFloating $ W.RationalRect l t w h
     									where
         							h = 0.9
         							w = 0.9

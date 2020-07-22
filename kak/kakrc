@@ -12,7 +12,6 @@ plug "andreyorst/fzf.kak"
 
 plug "TeddyDD/kakoune-wiki"
 plug 'delapouite/kakoune-livedown'
-plug "alexherbo2/auto-pairs.kak"
 
 plug "ul/kak-lsp" do %{
   cargo install --locked --force --path .

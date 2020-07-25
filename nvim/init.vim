@@ -11,8 +11,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 
+" vimwiki
+Plug 'vimwiki/vimwiki'
+
 " Colemak binds for vim
 Plug 'jooize/vim-colemak'
+
+" Bar
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
@@ -37,13 +43,14 @@ set clipboard=unnamedplus
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
 
+" vimwiki
+let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
-
-" Nerd tree
 
 " Check file in shellcheck:
 	map <leader>s :!clear && shellcheck %<CR>
